@@ -1,0 +1,16 @@
+<div class="coder-instructions" random-backgroundcolor>
+    <h4>Rules to code by</h4>
+    <ol type="I">
+      <li>When translating Morse Code use a space between each letter and a double space between each word.</li>
+      <li>Punctuation at this point will not actually translate</li>
+      <li>The translator will only do either english or Morse Code. Not both</li>
+    </ol>
+  </div>
+<div class="coder" random-backgroundcolor>
+  <div class="coder-input" >
+    <textarea  name="code" rows="8" cols="40" placeholder="Enter your text or Morse Code here:" ng-model="userInput" ng-change="inputFunction(userInput)"></textarea>
+  </div>
+  <div class="code-output">
+    <textarea name="output" rows="8" cols="40" placeholder="Your translation will appear here"  readonly>{{testText}}</textarea>
+  </div>
+</div>
