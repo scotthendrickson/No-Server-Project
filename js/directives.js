@@ -43,14 +43,11 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
 }]).directive('morseCoder', function(){
   return{
     restrict: 'E',
-    template:'<div class="coder" random-backgroundcolor><div class="coder-input" ><textarea  name="code" rows="8" cols="40" placeholder="Enter your text or Morse Code here:" ng-model="userInput" ng-change="inputFunction(userInput)"></textarea></div><div class="code-output"><textarea name="output" rows="8" cols="40" placeholder="Your translation will appear here"  readonly>{{testText}}</textarea></div><audio id="myAudio"><source src="00 A Quiet Moment.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio><p>Click the buttons to play or pause the audio.</p><button ng-click="playMorse(testText)" type="button">Play Audio</button>',
+    template:'<div class="coder" random-backgroundcolor><div class="coder-input" ><textarea  name="code" rows="8" cols="40" placeholder="Enter your text or Morse Code here:" ng-model="userInput" ng-change="inputFunction(userInput)"></textarea></div><div class="code-output"><textarea name="output" rows="8" cols="40" placeholder="Your translation will appear here"  readonly>{{testText}}</textarea></div><audio id="myAudio"><source src="00 A Quiet Moment.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio><p>Click the buttons to play your morse code.</p><button ng-click="playMorse(testText)" type="button">Play Audio</button>',
     scope: {
     },
-    controller: function($scope) {
+    controller: function($scope, $interval) {
       var x = document.getElementById("myAudio");
-
-
-
       $scope.playAudio = function() {
         var test = '/Audio/dash.wav'
         x.play();
@@ -62,6 +59,22 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
       $scope.userInput = "";
       $scope.inputFunction = function(morse){
         var morseCodes = {
+          '.-.-.-' : '.',
+          '--..--' : ',',
+          '---...' : ':',
+          '..--..' : '?',
+          '.----.' : "'",
+          '-.-.--' : "!",
+          '-.--.' : "(",
+          '-.--.-' : ")",
+          '.-...' : "&",
+          '-.-.-.' : ";",
+          '-...-' : "=",
+          '.-.-.' : "+",
+          '..--.-' : "_",
+          '.-..-.' : '"',
+          '.--.-.' : "@",
+          '...-..-' : "$",
           ".-" : "a",
           "-..." : "b",
           "-.-." : "c",
@@ -97,7 +110,8 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
           "-...." : 6,
           "--..." : 7,
           "---.." : 8,
-          "----." : 9
+          "----." : 9,
+
         };
         if (morse[0] === '.' | morse[0] === '-'){
           var morseCode = morse.replace(/\s\s+/g, ' & ').split(' ');
@@ -111,6 +125,23 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
           $scope.testText = morseCode.join('').replace(/&/g,' ');
         }else {
           var newString = morse.toLowerCase();
+          newString = newString.replace(/\./g, '.-.-.-');
+          newString = newString.replace(/,/g,'--..--');
+          newString = newString.replace(/\:/g,'---...');
+          newString = newString.replace(/\?/g,'..--..');
+          newString = newString.replace(/\'/g,'.----.');
+          newString = newString.replace(/\!/g,'-.-.--');
+          newString = newString.replace(/\(/g,'-.--.');
+          newString = newString.replace(/\)/g,'-.--.-');
+          newString = newString.replace(/\&/g, '.-...');
+          newString = newString.replace(/;/g, '-.-.-.');
+          newString = newString.replace(/\=/g, '-...-');
+          newString = newString.replace(/\+/g, '.-.-.');
+          //newString = newString.replace(/\-/g, '-....-');
+          newString = newString.replace(/\_/g, '..--.-');
+          newString = newString.replace(/\"/g, '.-..-.');
+          newString = newString.replace(/\@/g, '.--.-.');
+          newString = newString.replace(/\$/g, '...-..-');
           newString = newString.replace(/0/g, '----- ').replace(/1/g, '.---- ').replace(/2/g, '..--- ').replace(/3/g, '...-- ').replace(/4/g, '....- ').replace(/5/g, '..... ').replace(/6/g, '-.... ');
           newString = newString.replace(/7/g, '--... ').replace(/8/g, '---.. ').replace(/9/g, '----. ').replace(/a/g, '.- ').replace(/b/g, '-... ').replace(/c/g, '-.-. ').replace(/d/g, '-.. ');
           newString = newString.replace(/e/g, '. ').replace(/f/g, '..-. ').replace(/g/g, '--. ').replace(/h/g, '.... ').replace(/i/g, '.. ').replace(/j/g, '.--- ').replace(/k/g, '-.- ');
@@ -119,39 +150,49 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
           $scope.testText = newString.replace(/z/g, '--.. ');
         }
     };
-    $scope.sleep = function(milliseconds){
-      var start = new Date().getTime();
-      for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-          break;
-        }
+    var dot = new Audio('Audio/dot.wav');
+    var dash = new Audio('Audio/dash.wav');
+    var space = new Audio('Audio/space.wav');
+    // $scope.playMorse = function(code){
+    //   var newArray = code.replace(/\s/g, "&").split('');
+    //   console.log(newArray);
+    //   for (var i = 0; i < newArray.length; i++){
+    //     console.log(newArray[i] + ' i = ' + i);
+    //     if(newArray[i] === '.'){
+    //       $scope.sleep(100);
+    //       dot.play();
+    //     }else if (newArray[i] === '-'){
+    //       $scope.sleep(100);
+    //       dash.play();
+    //     }else if (newArray[i] === '&'){
+    //       $scope.sleep(500);
+    //       space.play();
+    //     }
+    //   }
+    // };
+    $scope.playMorse = function(code, i){
+      if (!i) {
+        i = 0;
       }
-    };
-    $scope.playMorse = function(code){
-      var newArray = code.replace(/\s/g, "&").split('');
-      console.log(newArray);
-      for (var i = 0; i < newArray.length; i++){
-        $scope.sleep(i * 50);
-        var dot = new Audio('Audio/dot.wav');
-        var dash = new Audio('Audio/dash.wav');
-        var space = new Audio('Audio/space.wav');
-        if(newArray[i] === '.'){
-          console.log(newArray[i] + 'i = ' + i);
-
-          dot.play();
-
-        }else if (newArray[i] === '-'){
-          console.log(newArray[i] + 'i = ' + i);
-
-          dash.play();
-        }else if (newArray[i] === '&'){
-          console.log(newArray[i] + 'i = ' + i);
-
-          space.play();
-        }
-
+      if (!x) {
+        i = 350;
       }
-    };
+      if (typeof(code) === 'string') {
+        code = code.replace(/\s/g, "&").split('');
+      }
+            if(code[i] === '.'){
+              dot.play();
+              x = 250;
+            }else if (code[i] === '-'){
+              dash.play();
+              x = 350;
+            }else if (code[i] === '&'){
+              space.play();
+              x = 275;
+            }
+        i++;
+        $interval($scope.playMorse, x, 1, true, code, i)
+    }
     },
     link: function(scope, element, attributes){
 

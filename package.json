@@ -14,5 +14,8 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0"
+  },
+  "devDependencies": {
+    "gulp-watch": "^4.3.6"
   }
 }
