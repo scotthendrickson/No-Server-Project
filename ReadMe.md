@@ -1,40 +1,5 @@
-*Three routes
-*Two directives
-Focus on the core parts of the app first!
-First thing to do is get those things done and then work on the cool stuff.
-SCOPE is VERY IMPORTANT, meaning how much you are trying to get done! You only have a few days.
+The Morse Coder by Scott Hendrickson
 
-Overview:
-I'm going to make a morse encoder/decoder
+This was my first solo project at DevMountain where I was required to design a project that fulfilled two requirements. First was to have three UI-Routes and second was to have two Directives.
 
- * Home Page:
-  * Nav bar/header
-  * Include Time
-  * Brief introduction
-    **For complexity you could add a preview?
-  * Footer Repeat Nav bar but in Morse Code
-
- * About Morse Code Page:
-  * Nav bar/header
-  * Include Time
-  * History:
-    * Origin
-    * Use
-    *References
-  * Footer Repeat Nav bar but in Morse Code
-
- * Encoder/decoder
-  * Nav bar/header
-  * Include Time
-  * Input box
-  * Output div
-  * Button to select if you are encoding/decoding
-  * Footer Repeat Nav bar but in Morse Code
-
- * Explanation page
-  * Nav bar/header
-  * Include Time 
-  * Break down of Code:
-    *Morse Code Object
-    *Breakdown of the function
-  * Footer Repeat Nav bar but in Morse Code
+My project focused on translating English to Morse Code or back and as an added bonus it could also play the sound. The three pages fulfilled my UI-Routing requirement. For my directives I created three: Clock that updates each second, random css color generator, and the Morse Code translator. Having the translator in it's own directive allowed me to separate all of the variables into their own scope and use it anywhere I wanted as often as I wanted. 
