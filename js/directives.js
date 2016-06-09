@@ -153,23 +153,8 @@ angular.module('routerApp').directive("randomBackgroundcolor", function () {
     var dot = new Audio('Audio/dot.wav');
     var dash = new Audio('Audio/dash.wav');
     var space = new Audio('Audio/space.wav');
-    // $scope.playMorse = function(code){
-    //   var newArray = code.replace(/\s/g, "&").split('');
-    //   console.log(newArray);
-    //   for (var i = 0; i < newArray.length; i++){
-    //     console.log(newArray[i] + ' i = ' + i);
-    //     if(newArray[i] === '.'){
-    //       $scope.sleep(100);
-    //       dot.play();
-    //     }else if (newArray[i] === '-'){
-    //       $scope.sleep(100);
-    //       dash.play();
-    //     }else if (newArray[i] === '&'){
-    //       $scope.sleep(500);
-    //       space.play();
-    //     }
-    //   }
-    // };
+
+    
     $scope.playMorse = function(code, i){
       if (!i) {
         i = 0;
